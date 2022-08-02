@@ -32,3 +32,12 @@ ANIMA requires the dependencies below:
 ```sh
 $ cli.py --text "example text" --lang "lang_code" --out_file "out_filename.wav"
 ```
+
+## "audios" file structure
+    | "default_speaker"
+        | lang
+            | out_audio_file
+    | voice_name
+        | lang
+            | "input_voice.wav"
+            | out_audio_file
