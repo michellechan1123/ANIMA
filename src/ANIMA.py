@@ -306,6 +306,3 @@ class ANIMA():
     class InvalidModelType(Exception):
         def __init__(self) -> None:
             super().__init__(f"Invalid model type: the model can only be TTS_models or voice_cloning models")
-
-test = ANIMA()
-r = test.tts_default_voice("j'ai acheté une pomme", "fr.wav", "fr")
