@@ -36,26 +36,6 @@ class AudioManager():
         playsound(curr_dir)
 
 
-    # HIDE THIS FUNCTION IS DUE TO THE LOW QUALITY OF mp3 file COMPARED TO wav file. WOULD BE CONVENIENT TO UPLOAD MP3 FILE BUT QUALITY OF PROCESSED VOICE WOULD BE VERY MUCH AFFECTED. -> NOT USEFUL IN MY OPINION :)
-    # def mp3_to_wav(self, mp3_file_path: str):  
-    #     """
-    #     Convert .mp3 to .wav file
-
-    #     Args:
-    #         file_path (str): mp3 file path
-    #     """  
-    #     mp3 = AudioSegment.from_mp3(mp3_file_path)
-    #     mp3_filename = os.path.basename(mp3_file_path)
-    #     wav_filename = mp3_filename.replace(".mp3", ".wav")
-
-    #     parent_path = os.getcwd()
-    #     curr_path = os.path.join(parent_path, wav_filename)
-    #     mp3.export(curr_path, format="wav")
-
-    #     print(f"The {mp3_filename} is saved as a .wav file!")
-
-    #     return curr_path
-
     def combine_wav_files(self, wav_files: list[str]):
         """
         Combine .wav files.
