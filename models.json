@@ -1,0 +1,26 @@
+{
+    "TTS_models": {
+        "en": {
+            "tts_model": "tts_models/en/ljspeech/tacotron2-DDC",
+            "vocoder_model": "vocoder_models/en/ljspeech/hifigan_v2"
+        },
+        "fr": {
+            "tts_model": "tts_models/fr/mai/tacotron2-DDC",
+            "vocoder_model": "vocoder_models/universal/libri-tts/fullband-melgan"
+        },
+        "de": {
+            "tts_model": "tts_models/de/thorsten/vits",
+            "vocoder_model": "vocoder_models/de/thorsten/fullband-melgan"
+        }
+    },
+    "voice_cloning_models": {
+        "en": {
+            "tts_model": "tts_models/multilingual/multi-dataset/your_tts",
+            "vocoder_model": "null"
+        },
+        "pt": {
+            "tts_model": "tts_models/multilingual/multi-dataset/your_tts",
+            "vocoder_model": "null"
+        }
+    }
+} 
