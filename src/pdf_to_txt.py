@@ -1,5 +1,4 @@
 import pdfplumber
-from unicodedata import category
 
 class PdfToStrings():
     """
