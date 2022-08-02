@@ -1,8 +1,6 @@
 import pytesseract
 import os
-import sys
 from PIL import Image
-from unicodedata import category
 
 class ImgToStrings():
     """
@@ -14,6 +12,12 @@ class ImgToStrings():
 
     def img_to_str(self, img_path: str, lang: str, crop_img_box=None):
         """
+        Convert text in pdf to strings with optional file page and line specified. 
+
+        Args:
+            img_path (str): image filepath in path/image format. Only allows .jpg or .png file
+            lang (str): language code
+            crop_img_box (list[int]): crop image coordinate box
         """
         self.__check_file_path(img_path)
         self.__check_lang(lang)
@@ -23,31 +27,17 @@ class ImgToStrings():
         if crop_img_box is not None:
             image = image.crop(crop_img_box)
         
-        str = pytesseract.image_to_string(image, lang=lang)
-        str_wo_symbols = self.__remove_symbols(str)
+        text = pytesseract.image_to_string(image, lang=lang)
 
-        return str_wo_symbols
-    
-    def __remove_symbols(self, text: str):
-        """
-        Removes symbols in text.
-
-        Args:
-            text (str): text from pdf file
-        """
-        str_only_list = []
-        symbol_chars =  [chr(i) for i in range(sys.maxunicode) if category(chr(i)).startswith("P")]
-
-        for char in text:
-            if char not in symbol_chars:
-                str_only_list.append(char)
-
-        str_only_str = "".join(str_only_list)
-        return str_only_str
+        return text
 
 
     def __check_file_path(self, img_path):
         """
+        Check is file path is valid. 
+
+        Args: 
+            img_path (str): image filepath in path/image format. Only allows .jpg or .png file
         """
         img_path_len = len(img_path) 
 
@@ -62,6 +52,10 @@ class ImgToStrings():
     
     def __check_lang(self, lang):
         """
+        Check if language code is valid. 
+
+        Args: 
+            lang (str): language code
         """
         if lang not in self.lang:
             raise self.InvalidLang(lang)

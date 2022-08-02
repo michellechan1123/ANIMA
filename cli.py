@@ -178,7 +178,7 @@ def main():
 
     if valid_voice_cloning_txt_args:
         if ".pdf" in txt_file:
-            pdf_to_str.txt_to_str(txt_file, )
+            pdf_to_str.pdf_to_str(txt_file, )
             in_dir, out_dir = audio_manager.dir_audio_to_folder(lang, out_file, voice_name)
             anima.voice_clone(text, in_dir, out_dir, lang)
             sys.exit()

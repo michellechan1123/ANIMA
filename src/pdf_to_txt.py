@@ -1,12 +1,11 @@
 import pdfplumber
-import sys 
 from unicodedata import category
 
 class PdfToStrings():
     """
     Converts .pdf file text to strings with symbols removed. 
     """
-    def txt_to_str(self, file_path: str, file_page_line=None, password=None):
+    def pdf_to_str(self, file_path: str, file_page_line=None, password=None):
         """
         Convert text in pdf to strings with optional file page and line specified. 
 
@@ -23,9 +22,8 @@ class PdfToStrings():
             
             text_list = self.__select_page_line(pdf, file_page_line)
             text = "".join(text_list)
-            str_only_string = self.__remove_symbols(text)
 
-            return str_only_string
+            return text
 
 
     def __select_page_line(self, pdf: pdfplumber.pdf.PDF, file_page_line=None):
@@ -86,24 +84,6 @@ class PdfToStrings():
         page["page"] -= 1
             
         return page
-
-
-    def __remove_symbols(self, text: str):
-        """
-        Removes symbols in text.
-
-        Args:
-            text (str): text from pdf file
-        """
-        str_only_list = []
-        symbol_chars =  [chr(i) for i in range(sys.maxunicode) if category(chr(i)).startswith("P")]
-
-        for char in text:
-            if char not in symbol_chars:
-                str_only_list.append(char)
-
-        str_only_str = "".join(str_only_list)
-        return str_only_str
 
 
     def __check_file_path(self, file_path):
