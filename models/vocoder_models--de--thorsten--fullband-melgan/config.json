@@ -1,0 +1,181 @@
+{
+    "output_path": "/home/thorsten/___prj/tts/models/vocoder/fullband-melgan-main/output",
+    "logger_uri": null,
+    "run_name": "thorsten-dca-fullband-melgan-main-branch",
+    "project_name": null,
+    "run_description": "FullBand-MelGAN Vocoder on thorsten v03 vocoder dataset. Commit id 0ee3eeefb553678d56c49534f3972a426a254649",
+    "print_step": 25,
+    "plot_step": 100,
+    "model_param_stats": false,
+    "wandb_entity": null,
+    "dashboard_logger": "tensorboard",
+    "log_model_step": null,
+    "save_step": 25000,
+    "save_n_checkpoints": 5,
+    "save_checkpoints": true,
+    "save_all_best": false,
+    "save_best_after": 10000,
+    "target_loss": "avg_G_loss",
+    "print_eval": false,
+    "test_delay_epochs": 10,
+    "run_eval": true,
+    "distributed_backend": "nccl",
+    "distributed_url": "tcp://localhost:54321",
+    "mixed_precision": false,
+    "epochs": 10000,
+    "batch_size": 48,
+    "eval_batch_size": 16,
+    "grad_clip": null,
+    "scheduler_after_epoch": true,
+    "lr": 0.001,
+    "optimizer": "AdamW",
+    "optimizer_params": {
+        "betas": [
+            0.8,
+            0.99
+        ],
+        "weight_decay": 0.0
+    },
+    "lr_scheduler": null,
+    "lr_scheduler_params": {},
+    "use_grad_scaler": false,
+    "cudnn_enable": true,
+    "cudnn_benchmark": true,
+    "torch_seed": 54321,
+    "model": "fullband_melgan",
+    "num_loader_workers": 4,
+    "num_eval_loader_workers": 0,
+    "use_noise_augment": false,
+    "audio": {
+        "fft_size": 1024,
+        "win_length": 1024,
+        "hop_length": 256,
+        "frame_shift_ms": null,
+        "frame_length_ms": null,
+        "stft_pad_mode": "reflect",
+        "sample_rate": 22050,
+        "resample": false,
+        "preemphasis": 0.0,
+        "ref_level_db": 20,
+        "do_sound_norm": false,
+        "log_func": "np.log10",
+        "do_trim_silence": false,
+        "trim_db": 50,
+        "do_rms_norm": false,
+        "db_level": null,
+        "power": 1.5,
+        "griffin_lim_iters": 60,
+        "num_mels": 80,
+        "mel_fmin": 50.0,
+        "mel_fmax": 8000.0,
+        "spec_gain": 1,
+        "do_amp_to_db_linear": true,
+        "do_amp_to_db_mel": true,
+        "pitch_fmax": 640.0,
+        "pitch_fmin": 0.0,
+        "signal_norm": true,
+        "min_level_db": -100,
+        "symmetric_norm": true,
+        "max_norm": 4.0,
+        "clip_norm": true,
+        "stats_path": "/home/julian/.local/share/tts/vocoder_models--de--thorsten--fullband-melgan/scale_stats.npy"
+    },
+    "eval_split_size": 10,
+    "data_path": "/home/thorsten/___prj/tts/datasets/thorsten-de_v03/wavs/",
+    "feature_path": "/home/thorsten/___prj/tts/datasets/thorsten-de_v03/features/",
+    "seq_len": 16384,
+    "pad_short": 2000,
+    "conv_pad": 0,
+    "use_cache": true,
+    "wd": 0.0,
+    "use_stft_loss": true,
+    "use_subband_stft_loss": false,
+    "use_mse_gan_loss": true,
+    "use_hinge_gan_loss": false,
+    "use_feat_match_loss": true,
+    "use_l1_spec_loss": true,
+    "stft_loss_weight": 0.0,
+    "subband_stft_loss_weight": 0.0,
+    "mse_G_loss_weight": 1.0,
+    "hinge_G_loss_weight": 0.0,
+    "feat_match_loss_weight": 108.0,
+    "l1_spec_loss_weight": 45.0,
+    "stft_loss_params": {
+        "n_ffts": [
+            1024,
+            2048,
+            512
+        ],
+        "hop_lengths": [
+            120,
+            240,
+            50
+        ],
+        "win_lengths": [
+            600,
+            1200,
+            240
+        ]
+    },
+    "l1_spec_loss_params": {
+        "use_mel": true,
+        "sample_rate": 22050,
+        "n_fft": 1024,
+        "hop_length": 256,
+        "win_length": 1024,
+        "n_mels": 80,
+        "mel_fmin": 50.0,
+        "mel_fmax": 8000.0
+    },
+    "lr_gen": 1.5625e-06,
+    "lr_disc": 1.5625e-06,
+    "lr_scheduler_gen": "MultiStepLR",
+    "lr_scheduler_gen_params": {
+        "gamma": 0.5,
+        "milestones": [
+            100000,
+            200000,
+            300000,
+            400000,
+            500000,
+            600000,
+            700000,
+            800000
+        ]
+    },
+    "lr_scheduler_disc": "MultiStepLR",
+    "lr_scheduler_disc_params": {
+        "gamma": 0.5,
+        "milestones": [
+            100000,
+            200000,
+            300000,
+            400000,
+            500000,
+            600000,
+            700000,
+            800000
+        ]
+    },
+    "use_pqmf": false,
+    "diff_samples_for_G_and_D": true,
+    "discriminator_model": "melgan_multiscale_discriminator",
+    "discriminator_model_params": {
+        "base_channels": 16,
+        "max_channels": 512,
+        "downsample_factors": [
+            4,
+            4,
+            4
+        ]
+    },
+    "generator_model": "fullband_melgan_generator",
+    "generator_model_params": {
+        "upsample_factors": [
+            8,
+            8,
+            4
+        ],
+        "num_res_blocks": 4
+    }
+}
