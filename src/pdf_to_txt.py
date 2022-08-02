@@ -126,4 +126,4 @@ class PdfToStrings():
 
     class InvalidFilename(Exception):
         def __init__(self) -> None:
-            super().__init__(f"Invlid filename: the filename must end with \".pdf\"")
+            super().__init__(f"Invalid filename: the filename must end with \".pdf\"")
