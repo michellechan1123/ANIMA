@@ -20,7 +20,7 @@ ANIMA requires the dependencies below:
 - Tesseract-OCR exe (C:\Program Files)
 - Visual studio C++ build 
 
-## Play around with ANIMA
+## Play around with ANIMA (slow and not working atm)
 
 ### Voice cloning
 
