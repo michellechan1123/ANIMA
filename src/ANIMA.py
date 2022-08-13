@@ -10,13 +10,13 @@ import shutil
 class ANIMA(): 
     """
     Synthesises TTS with default speaker or voice cloning in a variety of languages.
-    Models must be downloaded under "models" before usage. 
-    All models can be found in https://github.com/coqui-ai/TTS release. 
 
+    Models must be downloaded under AppData/Local/tts before usage with internet connection. 
+    All models can be found in https://github.com/coqui-ai/TTS release. 
     Alternative is to run $ tts --text "Text for TTS" --model_name "<model_type>/<language>/<dataset>/<model_name>" --out_path output/path/speech.wav with internet connection.
     Existing language models can be changed and additional language models can be added.
 
-    The following models are provided with corresponding languages in 'models.json':
+    The following models are downloaded and provided with corresponding languages in 'models.json':
         Voice cloning:
             English: tts_models/multilingual/multi-dataset/your_tts --"en"
             Portuguese: tts_models/multilingual/multi-dataset/your_tts --"pt"
@@ -40,7 +40,7 @@ class ANIMA():
         self.encoder_path = None
         self.encoder_config_path = None
         self.use_cuda = False
-        self.models_path = self.__move_models()
+        self.__download_init_models()
 
 
     def tts_default_voice(self, text: str, filename: str, lang: str):
@@ -116,7 +116,7 @@ class ANIMA():
 
     def add_language_model(self, model_type: str, lang: str, model_name: str, vocoder_name="null"):
         """
-        Add or change language model in 'models.json'. Move model in models to .TTS folder. 
+        Add or change language model in 'models.json'. Download added models.
 
         Args: 
             model_type (str): TTS_models or voice_cloning_models
@@ -141,13 +141,16 @@ class ANIMA():
             file.seek(0)
             json.dump(file_data, file, indent=4)
         
-        self.__move_models()
+        self.manager.download_model(model_name)
+
+        if vocoder_name != "null":
+            self.manager.download_model(vocoder_name)
 
 
     #bug: Duplicating character sometimes occur at the end of models.json when deleting language model
     def remove_language_model(self, lang: str, model_type: str):
         """
-        Remove language model in "models.json"
+        Remove language model in "models.json".
 
         Args: 
             lang (str): language code 
@@ -266,22 +269,18 @@ class ANIMA():
             return
         else:
             raise self.InvalidModelType()
-    
-    def __move_models(self):
-        """
-        Move models folder to .TTS folder.
-        """
-        parent_path = Path.home()
-        new_path = os.path.join(parent_path, "AppData", "Local", "tts")
 
-        if not os.path.exists(new_path):
-            os.makedirs(new_path)
+    def __download_init_models(self):
+        init_models = {
+            "multi": "tts_models/multilingual/multi-dataset/your_tts",
+            "en": "tts_models/en/ljspeech/tacotron2-DDC",
+            "de": "tts_models/de/thorsten/vits",
+            "fr": "tts_models/fr/mai/tacotron2-DDC"
+        }
 
-        for folder in os.listdir("models"):
-            curr_folder  = os.path.join("models", folder)
-            updated_folder= os.path.join(new_path, folder)
-            Path(curr_folder).rename(updated_folder)
-
+        for lang, model_path in init_models.items():
+            self.manager.download_model(model_path)
+            
 
     class InvalidLanguage(Exception):
         def __init__(self) -> None:
