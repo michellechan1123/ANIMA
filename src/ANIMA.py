@@ -271,6 +271,9 @@ class ANIMA():
             raise self.InvalidModelType()
 
     def __download_init_models(self):
+        """
+        Download initial language models. 
+        """
         init_models = {
             "multi": "tts_models/multilingual/multi-dataset/your_tts",
             "en": "tts_models/en/ljspeech/tacotron2-DDC",
