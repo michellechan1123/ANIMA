@@ -22,7 +22,7 @@ ANIMA requires the dependencies below:
 
 ## Set Up Instructions
 
-Work in progress on Windows OS
+Work in progress on Windows OS.
 
 To install requirements and prime the application, run the following commands:
 
