@@ -20,8 +20,29 @@ ANIMA requires the dependencies below:
 - Tesseract-OCR exe (C:\Program Files)
 - Visual studio C++ build 
 
-## Play around with ANIMA (slow and not working atm)
+## Set Up Instructions
 
+Work in progress on Windows OS.
+
+To install requirements and prime the application, run the following commands:
+
+- Clone the repository with "git clone ..."
+- Create a virtual environment:
+    - "python -m venv venv"
+    - "venv\Scripts\activate"
+- "pip install -r requirements.txt"
+
+Run the program GUI with the command:
+
+- "python -m gui.main"
+
+## Play around with ANIMA
+
+Working functionalities so far:
+
+- 'Select your voice as .wav file' accordion under 'CLONE VOICE' tab
+- 'Read out custom text' accordion under 'TEXT-TO-SPEECH' tab
+ 
 ### Voice cloning
 
 ```sh
