@@ -8,9 +8,6 @@
         },
         "de": {
             "tts_model": "tts_models/de/thorsten/vits"
-        },
-        "ja": {
-            "tts_model": "tts_models/ja/kokoro/tacotron2-DDC"
         }
     },
     "voice_cloning_models": {
