@@ -13,8 +13,9 @@ class ANIMA():
 
     Models must be downloaded under AppData/Local/tts before usage with internet connection. 
     All models can be found in https://github.com/coqui-ai/TTS release. 
+
     Alternative is to run $ tts --text "Text for TTS" --model_name "<model_type>/<language>/<dataset>/<model_name>" --out_path output/path/speech.wav with internet connection.
-    Existing language models can be changed and additional language models can be added.
+    Additional language models can be added.
 
     The following models are downloaded and provided with corresponding languages in 'models.json':
         Voice cloning:
@@ -60,7 +61,7 @@ class ANIMA():
         self.__check_filename(filename)
         self.__check_lang_len(lang)
 
-        model_path, vocoder_path = self.__select_lang("TTS_models", lang)
+        model_path = self.__select_lang("TTS_models", lang)
         self.model_path, self.config_path, self.model_item = self.manager.download_model(model_path)
         synthesizer = Synthesizer(
             self.model_path,
@@ -83,7 +84,7 @@ class ANIMA():
         """
         Real time voice cloning of an input voice .wav to oupt a digital voice .wav.
 
-        Both English ("en) and Portugese ("pt) are available using YourTTS model in Coqui and the desired language can be specified in lang.
+        Both English ("en") and Portugese ("pt") are available using YourTTS model in Coqui and the desired language can be specified in lang.
         
         Args:
             text (str): desired text to undergo TTS
@@ -94,8 +95,9 @@ class ANIMA():
 
         self.__check_filename(speaker_wav)
         self.__check_filename(filename)
+        self.__check_lang_len(lang)
 
-        model_path, vocoder_path = self.__select_lang("voice_cloning_models", lang)
+        model_path = self.__select_lang("voice_cloning_models", lang)
         self.model_path, self.config_path, self.model_item = self.manager.download_model(model_path)
         synthesizer = Synthesizer(
             self.model_path,
@@ -114,15 +116,14 @@ class ANIMA():
         print(f"The file {filename} has been saved!")
 
 
-    def add_language_model(self, model_type: str, lang: str, model_name: str, vocoder_name="null"):
+    def add_language_model(self, model_type: str, lang: str, model_name: str):
         """
-        Add or change language model in 'models.json'. Download added models.
+        Add language model in 'models.json'. Download added models.
 
         Args: 
             model_type (str): TTS_models or voice_cloning_models
             lang (str): language code
             model_name (str): file path in model_type/language/dataset/model_name format
-            vocoder_name (str): 
         """
         self.__check_lang_len(lang)
         self.__check_model_type(model_type)
@@ -134,23 +135,19 @@ class ANIMA():
             if lang in file_data[model_type]:
                 raise self.InvalidDuplicateLanguage()
 
+            self.manager.download_model(model_name)
+
             file_data[model_type][lang] = {}
             file_data[model_type][lang]["tts_model"] = model_name
-            file_data[model_type][lang]["vocoder_model"] = vocoder_name
 
             file.seek(0)
             json.dump(file_data, file, indent=4)
-        
-        self.manager.download_model(model_name)
-
-        if vocoder_name != "null":
-            self.manager.download_model(vocoder_name)
 
 
     #bug: Duplicating character sometimes occur at the end of models.json when deleting language model
     def remove_language_model(self, lang: str, model_type: str):
         """
-        Remove language model in "models.json".
+        Remove language model in "models.json". Delete model folder. 
 
         Args: 
             lang (str): language code 
@@ -165,21 +162,15 @@ class ANIMA():
             file_data = json.loads(file_str)
 
             model_path = file_data[model_type][lang]["tts_model"]
-            vocoder_path = file_data[model_type][lang]["vocoder_model"]
             model_name = model_path.replace("/", "--")
-            vocoder_name = vocoder_path.replace("/", "--")
-
-            print(model_name, vocoder_name)
 
             parent_path = Path.home()
             base_path = os.path.join(parent_path, "AppData", "Local", "tts")
 
             new_model_path = os.path.join(base_path, model_name)
-            new_vocoder_path = os.path.join(base_path, vocoder_name)
 
             try:
                 shutil.rmtree(new_model_path)
-                shutil.rmtree(new_vocoder_path)
 
                 file_data[model_type].pop(lang)
 
@@ -225,9 +216,8 @@ class ANIMA():
             for lang_model in file_data[model_type]:
                 if lang == lang_model:
                     for model in file_data[model_type][lang_model]:
-                        if model == "tts_model" or model =="vocoder_model":
-                            model_list.append(file_data[model_type][lang_model][model])
-                    return model_list
+                        tts_model = file_data[model_type][lang_model][model]
+                    return tts_model
                 
             raise self.InvalidLanguage()
 
@@ -264,8 +254,6 @@ class ANIMA():
             model_type (str): TTS_models or voice_cloning_models
         """
         if model_type == "TTS_models":
-            return
-        elif model_type == "voice_cloning_models":
             return
         else:
             raise self.InvalidModelType()

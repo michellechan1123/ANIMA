@@ -30,7 +30,6 @@ class AudioManager():
             file_path (str): path to audio in path/out_file.wav format
             voice_name (str, optional): name given to voice. Default to default_speaker
         """
-        self.__check_path(voice_name, lang, file_path)
         curr_dir = os.path.join(self.audios_dir, voice_name, lang, file_path)
         print(f"The file {file_path} is playing...")
         playsound(curr_dir)
@@ -91,9 +90,9 @@ class AudioManager():
         invalid_new_voice = self.__check_path(new_voice_name)
 
         if not valid_voice:
-            raise self.InvalidPath(voice_name) 
+            raise self.InvalidPath() 
         if invalid_new_voice:
-            raise self.InvalidDuplicatePath(new_voice_name)
+            raise self.InvalidDuplicatePath()
 
         curr_voice_name = os.path.join(self.audios_dir, voice_name)
         updated_voice_name = os.path.join(self.audios_dir, new_voice_name)
@@ -116,9 +115,9 @@ class AudioManager():
         invalid_new_audio = self.__check_path(voice_name, lang, new_audio_name)
 
         if not valid_audio:
-            raise self.InvalidPath(audio_name) 
+            raise self.InvalidPath() 
         if invalid_new_audio:
-            raise self.InvalidDuplicatePath(new_audio_name)
+            raise self.InvalidDuplicatePath()
 
         curr_audio_name = os.path.join(self.audios_dir, voice_name, lang, audio_name)
         updated_audio_name = os.path.join(self.audios_dir, voice_name, lang, new_audio_name)
@@ -139,10 +138,14 @@ class AudioManager():
 
         valid_file_path = os.path.exists(file_path)
         if not valid_file_path:
-            raise self.InvalidPath(file_path)
+            raise self.InvalidPath()
 
-        self.__check_path(voice_name, lang)
+        valid_path = self.__check_path(voice_name, lang)
         curr_dir = os.path.join(self.audios_dir, voice_name, lang)
+
+        if valid_path:
+            raise self.InvalidDuplicatePath()
+
 
         os.makedirs(curr_dir)
 
@@ -162,7 +165,6 @@ class AudioManager():
             voice_name (str): name given to voice folder. Default to None
         """
         if voice_name is None:
-            self.__dir_default_speaker_lang(lang)
             out_voice_dir = os.path.join(self.audios_dir, "default_speaker", lang, out_file)
             out_dir = PureWindowsPath(out_voice_dir).as_posix()
             return [None, out_dir]
@@ -188,7 +190,10 @@ class AudioManager():
         if voice_name ==  "default_speaker":
             raise self.InvalidVoiceName()
 
-        self.__check_path(voice_name, lang, file)        
+        valid_path = self.__check_path(voice_name, lang, file)       
+
+        if not valid_path:
+            raise self.InvalidPath() 
 
         if lang is None and file is None:
             self.__delete_voice(voice_name)
@@ -281,13 +286,13 @@ class AudioManager():
             
         
     class InvalidPath(Exception):
-        def __init__(self, filename) -> None:
-            super().__init__(f"Invalid file path: the file {filename} does not exist")
+        def __init__(self) -> None:
+            super().__init__(f"Invalid file path: the file does not exist")
 
 
     class InvalidDuplicatePath(Exception):
-        def __init__(self, filename) -> None:
-            super().__init__(f"Invalid file path: the file {filename} already exists")
+        def __init__(self) -> None:
+            super().__init__(f"Invalid file path: the file already exists")
 
 
     class InvalidVoiceName(Exception):
