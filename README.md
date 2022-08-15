@@ -1,7 +1,7 @@
 # ANIMA
 ## Voice Integration and TTS of MotionInput
 
-ANIMA is a TTS and voice cloning backend working on multiple languages. This repository is built upon Coqui TTS to provide a voice integration layer to UCL MotionInput, which contributes to my implementation of  my MSc Computer Science master's thesis.
+ANIMA is a TTS and voice cloning backend working on multiple languages. This repository is built upon Coqui TTS to provide a voice integration layer to UCL MotionInput, which contributes to the implementation of my MSc Computer Science master's thesis.
 
 ## Features
 
