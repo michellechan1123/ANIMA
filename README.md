@@ -19,7 +19,7 @@ ANIMA requires the dependencies below:
 - ffmpeg (version-free)
 - Tesseract-OCR exe (C:\Program Files)
 
-## Play around with ANIMA (slow and not working atm)
+## Play around with ANIMA CLI
 
 ### Voice cloning
 
