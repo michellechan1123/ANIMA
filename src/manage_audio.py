@@ -187,8 +187,6 @@ class AudioManager():
             lang (str): langauge code. Default to None
             file (str): audio file to be deleted. Default to None
         """
-        if voice_name ==  "default_speaker":
-            raise self.InvalidVoiceName()
 
         valid_path = self.__check_path(voice_name, lang, file)       
 
@@ -196,6 +194,8 @@ class AudioManager():
             raise self.InvalidPath() 
 
         if lang is None and file is None:
+            if voice_name ==  "default_speaker":
+                raise self.InvalidVoiceName()
             self.__delete_voice(voice_name)
         elif file is None:
             self.__delete_lang(voice_name, lang)

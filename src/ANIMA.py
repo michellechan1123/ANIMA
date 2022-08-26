@@ -271,6 +271,8 @@ class ANIMA():
 
         for lang, model_path in init_models.items():
             self.manager.download_model(model_path)
+
+        print("\n")
             
 
     class InvalidLanguage(Exception):
