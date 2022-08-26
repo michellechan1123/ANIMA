@@ -8,7 +8,6 @@ ANIMA is a TTS and voice cloning backend working on multiple languages. This rep
 - Voice cloning in English and Portuguese
 - TTS in English, French and German
 - Pdf to text (English only)
-- docx to text (English only)
 - image to text (English, Portuguese, French and German)
 
 
@@ -25,12 +24,12 @@ ANIMA requires the dependencies below:
 ### Voice cloning
 
 ```sh
- $ cli.py --text "example text" --voice_name "voice_name" --lang "lang_code" --out_file "out_filename.wav"
+ $ cli.py --voice_clone --text "example text" --voice_name "voice_name" --lang "lang_code" --out_file "out_filename.wav"
 ```
 
 ### TTS 
 ```sh
-$ cli.py --text "example text" --lang "lang_code" --out_file "out_filename.wav"
+$ cli.py --tts --text "example text" --lang "lang_code" --out_file "out_filename.wav"
 ```
 
 ## "audios" file structure
