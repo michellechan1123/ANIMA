@@ -40,3 +40,17 @@ $ cli.py --tts --text "example text" --lang "lang_code" --out_file "out_filename
         | lang
             | "input_voice.wav"
             | out_audio_file
+            
+ ## "models.json" data structure
+    {
+        "TTS_models": {
+            "lang": {
+                "tts_model": "tts_models/lang/dataset/model_name"
+            }
+        },
+        "voice_cloning_models": {
+            "lang": {
+                "tts_model": "tts_models/lang/dataset/model_name"
+            }
+        }
+    }
