@@ -33,13 +33,14 @@ $ cli.py --tts --text "example text" --lang "lang_code" --out_file "out_filename
 ```
 
 ## "audios" file structure
-    | "default_speaker"
-        | lang
-            | out_audio_file
-    | voice_name
-        | lang
-            | "input_voice.wav"
-            | out_audio_file
+    | "audios"
+        | "default_speaker"
+            | lang
+                | out_audio_file
+        | voice_name
+            | lang
+                | "input_voice.wav"
+                | out_audio_file
             
  ## "models.json" data structure
     {
