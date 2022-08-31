@@ -13,6 +13,10 @@ ANIMA is a TTS and voice cloning backend working on multiple languages. This rep
 
 ## Installation
 
+```sh
+ $ pip install -r requirement.txt 
+```
+
 ANIMA requires the dependencies below:
 - Python <3.10
 - Visual studio C++ build 
