@@ -11,16 +11,8 @@ from src.manage_audio import AudioManager
 
 
 class MainApp(MDApp):
-    harvard_sentences = ['Oak is strong and also gives shade',
-                        'Cats and dogs each hate the other',
-                        'The pipe began to rust while new',
-                        "Open the crate but don't break the glass",
-                        'Add the sum to the product of these three',
-                        'Thieves who rob friends deserve jail',
-                        'The ripe taste of cheese improves with age',
-                        'Act on these orders with great speed',
-                        'The hog crawled under the high fence',
-                        'Move the vat over the hot fire']
+    with open('./gui/harvard_sentences.txt') as f:
+        harvard_sentences = f.read().splitlines()
     to_read = StringProperty(random.choice(harvard_sentences))
 
     def build(self):
