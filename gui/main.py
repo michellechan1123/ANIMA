@@ -3,6 +3,7 @@ from kivymd.app import MDApp
 from kivy.properties import StringProperty
 import time
 import random
+import os
 import pyaudio
 import wave
 from src.ANIMA import ANIMA
@@ -80,9 +81,21 @@ class MainApp(MDApp):
             sound_file.setframerate(44100)
             sound_file.writeframes(b''.join(self.audio_frames))
             sound_file.close()
+            with open('voices.txt', 'a') as file:
+                file.write(self.root.ids.input_filename_voice.text + "\n")     
         except AttributeError:
             print("please enter a filename")
 
+    def combine_wavs(self):
+        try:
+            with open('voices.txt') as f:
+                lines = f.read().splitlines() 
+                self.audio_manager.combine_wav_files(lines, self.root.ids.input_filename_voice.text)
+            os.remove("voices.txt")
+            with open('voices.txt', 'a') as file:
+                file.write(self.root.ids.input_filename_voice.text + "\n")   
+        except PermissionError:
+            print("please do not play audio before combining .wav files")
 
 if __name__ == '__main__':
     MainApp().run()

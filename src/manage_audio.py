@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
-from playsound import playsound
+import pyaudio  
+import wave
 from pathlib import PureWindowsPath
 from pydub import AudioSegment
 
@@ -33,10 +34,36 @@ class AudioManager():
         self.__check_path(voice_name, lang, file_path)
         curr_dir = os.path.join(self.audios_dir, voice_name, lang, file_path)
         print(f"The file {file_path} is playing...")
-        playsound(curr_dir)
+        
+        #define stream chunk   
+        chunk = 1024  
+
+        #open a wav format music  
+        f = wave.open(r"" + curr_dir,"rb")  
+        #instantiate PyAudio  
+        p = pyaudio.PyAudio()  
+        #open stream  
+        stream = p.open(format = p.get_format_from_width(f.getsampwidth()),  
+                        channels = f.getnchannels(),  
+                        rate = f.getframerate(),  
+                        output = True)  
+        #read data  
+        data = f.readframes(chunk)  
+
+        #play stream  
+        while data:  
+            stream.write(data)  
+            data = f.readframes(chunk)  
+
+        #stop stream  
+        stream.stop_stream()  
+        stream.close()  
+
+        #close PyAudio  
+        p.terminate()  
 
 
-    def combine_wav_files(self, wav_files: list[str]):
+    def combine_wav_files(self, wav_files: list[str], filename):
         """
         Combine .wav files.
 
@@ -55,7 +82,7 @@ class AudioManager():
 
         os.remove(init_file)
         parent_path = os.getcwd()
-        curr_path = os.path.join(parent_path, "input_voice.wav")
+        curr_path = os.path.join(parent_path, filename)
         init_wav.export(curr_path, format="wav")
 
         print(f"The files {wav_files} are all combined!")

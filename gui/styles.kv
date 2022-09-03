@@ -54,8 +54,8 @@ BoxLayout:
                                     hint_text: 'Enter filename (.wav)'
                             BoxLayout:
                                 orientation: "horizontal"
-                                padding: 50
-                                spacing: 100
+                                padding: 20
+                                spacing: 50
                                 Button:
                                     id: create_recording
                                     text: "Start Recording"
@@ -69,6 +69,10 @@ BoxLayout:
                                 Button:
                                     text: 'Next Sentence'
                                     on_press: app.next_sentence()
+                                    pos_hint:  {'center_x' : 0.6}
+                                Button:
+                                    text: 'Combine .wav files'
+                                    on_press: app.combine_wavs()
                                     pos_hint:  {'center_x' : 0.6}
 
                     AccordionItem:
