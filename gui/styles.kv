@@ -1,6 +1,5 @@
 BoxLayout:
     orientation: "vertical"
-    __safe_id: [file.__self__, tts.__self__, clone.__self__]
 
     MDToolbar:
         title: "Project ANIMA v1.0"
@@ -128,195 +127,28 @@ BoxLayout:
             text: "text-to-speech"
             icon: "view-headline"
 
-            MDLabel:
-                Accordion:
-                    orientation: "vertical"
-                    size: root.width, root.height*0.8
+            BoxLayout:
+                orientation: 'vertical'
+                padding: 50
+                spacing: 50
 
-                    AccordionItem:
-                        title: "Read out custom text with default voice"
-                        collapse: False
-                        BoxLayout:
-                            orientation: 'vertical'
-                            padding: 20
-                            spacing: 20
-
-                            TextInput:
-                                id: input
-                                hint_text: 'Enter text'
-                            TextInput:
-                                id: input_filename
-                                hint_text: 'Enter output filename'
-                            Button:
-                                id: read_input
-                                text: 'Click Me to Read Out'
-                                size_hint: None, None
-                                width: 200
-                                pos_hint:  {'center_x' : 0.5}
-                                on_press: app.process()
-
-                    AccordionItem:
-                        title: "Read out .pdf"
-
-                        BoxLayout:
-                            orientation: 'vertical'
-
-                            BoxLayout:
-                                canvas.before:
-                                    Color:
-                                        rgba: 0,0,0,1
-                                    Rectangle:
-                                        size: self.size
-                                orientation: 'vertical'
-                                size: root.width*0.8, root.height*0.8
-                                size_hint: 1, 1
-                                FileChooser:
-                                    id: fc_pdf
-                                    path: '.'
-                                    FileChooserListLayout
-                        BoxLayout:
-                            padding: 100
-                            Button:
-                                id: read_pdf
-                                text: 'Click Me to Read Out'
-                                size_hint: None, None
-                                width: 200
-                                pos_hint:  {'center_y' : 0.5}
-                                on_press: app.file_selected(fc_pdf.selection)
-
-        MDBottomNavigationItem:
-            name: "settings"
-            text: "settings"
-            icon: "dns"
-            orientation: "vertical"
-
-            MDLabel:
-                Accordion:
-                    orientation: "vertical"
-                    size: root.width, root.height*0.8
-
-                    AccordionItem:
-                        title: "Users"
-                        collapse: False
-
-                        BoxLayout:
-                            padding: 350, 150
-                            Button:
-                                font_size: 12
-                                size_hint: None, None
-                                id: btn_user
-                                text: "Select User"
-                                size_hint: None, None
-                                on_parent: user.dismiss()
-                                on_release: user.open(self)
-                            DropDown:
-                                id: user
-                                on_select: btn_user.text = f'{args[1]}'
-                                Button:
-                                    id: btn-user1
-                                    text: 'User 1'
-                                    size_hint: None, None
-                                    height: 35
-                                    on_release: user.select('User 1')
-                                Button:
-                                    id: btn-user2
-                                    text: 'User 2'
-                                    size_hint: None, None
-                                    height: 35
-                                    on_release: user.select('User 2')
-
-                    AccordionItem:
-                        title: "Languages"
-                        BoxLayout:
-                            padding: 80, 150
-                            Button:
-                                font_size: 12
-                                size_hint: None, None
-                                id: btn_clone
-                                text: "Voice Clone"
-                                size_hint: None, None
-                                on_parent: clone.dismiss()
-                                on_release: clone.open(self)
-                            DropDown:
-                                id: clone
-                                on_select: btn_clone.text = f'{args[1]}'
-                                Button:
-                                    id: btn-clone1
-                                    text: 'English'
-                                    size_hint: None, None
-                                    height: 35
-                                    on_release: clone.select('English')
-                                Button:
-                                    id: btn-clone2
-                                    text: 'Portuguese'
-                                    size_hint: None, None
-                                    height: 35
-                                    on_release: clone.select('Portuguese')
-                        BoxLayout:
-                            padding: 80, 150
-                            Button:
-                                font_size: 12
-                                size_hint: None, None
-                                id: btn_tts
-                                text: "Text-to-Speech"
-                                size_hint: None, None
-                                on_parent: tts.dismiss()
-                                on_release: tts.open(self)
-                            DropDown:
-                                id: tts
-                                on_select: btn_tts.text = f'{args[1]}'
-                                Button:
-                                    id: btn-tts1
-                                    text: 'English'
-                                    size_hint: None, None
-                                    height: 35
-                                    on_release: tts.select('English')
-                                Button:
-                                    id: btn-tts2
-                                    text: 'French'
-                                    size_hint: None, None
-                                    height: 35
-                                    on_release: tts.select('French')
-                                Button:
-                                    id: btn-tts3
-                                    text: 'German'
-                                    size_hint: None, None
-                                    height: 35
-                                    on_release: tts.select('German')
-                        BoxLayout:
-                            padding: 80, 150
-                            Button:
-                                font_size: 12
-                                size_hint: None, None
-                                id: btn_file
-                                text: "File-to-Text"
-                                size_hint: None, None
-                                on_parent: file.dismiss()
-                                on_release: file.open(self)
-                            DropDown:
-                                id: file
-                                on_select: btn_file.text = f'{args[1]}'
-                                Button:
-                                    id: btn_file1
-                                    text: 'English'
-                                    size_hint: None, None
-                                    height: 35
-                                    on_release: file.select('English')
-                                Button:
-                                    id: btn_file2
-                                    text: 'French'
-                                    size_hint: None, None
-                                    height: 35
-                                    on_release: file.select('French')
-                                Button:
-                                    id: btn_file2
-                                    text: 'German'
-                                    size_hint: None, None
-                                    height: 35
-                                    on_release: file.select('German')
-                                Button:
-                                    id: btn_file2
-                                    text: 'Portuguese'
-                                    size_hint: None, None
-                                    height: 35
-                                    on_release: file.select('Portuguese')
+                BoxLayout:
+                    width: 200
+                    height: 40
+                    TextInput:
+                        id: input
+                        hint_text: 'Enter text'
+                BoxLayout:
+                    padding: 30
+                    width: 80
+                    height: 40
+                    TextInput:
+                        id: input_filename
+                        hint_text: 'Enter output filename (.wav)'
+                Button:
+                    id: read_input
+                    text: 'Click Me to Read Out'
+                    size_hint: None, None
+                    width: 200
+                    pos_hint:  {'center_x' : 0.5}
+                    on_press: app.process()
