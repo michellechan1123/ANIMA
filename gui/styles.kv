@@ -27,7 +27,7 @@ BoxLayout:
                     size: root.width, root.height*0.8
 
                     AccordionItem:
-                        title: "Create .wav"
+                        title: "Record your own audio"
                         collapse: False
                         BoxLayout:
                             orientation: 'vertical'
@@ -75,7 +75,7 @@ BoxLayout:
                                     pos_hint:  {'center_x' : 0.6}
 
                     AccordionItem:
-                        title: "Select .wav to clone"
+                        title: "Select audio to clone/play"
 
                         BoxLayout:
                             canvas.before:
@@ -147,7 +147,7 @@ BoxLayout:
                         hint_text: 'Enter output filename (.wav)'
                 Button:
                     id: read_input
-                    text: 'Click Me to Read Out'
+                    text: 'Create default voice'
                     size_hint: None, None
                     width: 200
                     pos_hint:  {'center_x' : 0.5}
