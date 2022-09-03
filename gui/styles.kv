@@ -3,9 +3,13 @@ BoxLayout:
     __safe_id: [file.__self__, tts.__self__, clone.__self__]
 
     MDToolbar:
-        title: "ANIMA"
+        title: "Project ANIMA v1.0"
         md_bg_color: app.theme_cls.primary_light
         specific_text_color: 0.2, 0.2, 0.2, 1
+        
+        MDLabel:
+            text: "Ohhun Kwon & Michelle Chan, UCL Dept of Computer Science, supervised by Prof Dean Mohamedally, Supported by Intel and IBM"
+            font_size: 12
 
     MDBottomNavigation:
         panel_color: app.theme_cls.primary_light
@@ -24,7 +28,7 @@ BoxLayout:
                     size: root.width, root.height*0.8
 
                     AccordionItem:
-                        title: "Clone voice by speaking"
+                        title: "Create .wav"
                         collapse: False
                         BoxLayout:
                             orientation: 'vertical'
@@ -41,22 +45,34 @@ BoxLayout:
                                 size_hint: (0.8, 0.2)
                                 pos_hint:  {'center_x' : 0.6}
                             BoxLayout:
+                                pos_hint:  {'center_x' : 0.5}
+                                size_hint: None, None
+                                width: 200
+                                height: 40
+                                TextInput:
+                                    id: input_filename_voice
+                                    hint_text: 'Enter filename (.wav)'
+                            BoxLayout:
                                 orientation: "horizontal"
                                 padding: 50
                                 spacing: 100
-                                ToggleButton:
-                                    id: toggle_recording
+                                Button:
+                                    id: create_recording
                                     text: "Start Recording"
                                     pos_hint:  {'center_x' : 0.6}
-                                    on_state:
-                                        app.process_toggle_recording()
+                                    on_press: app.start_recording()
+                                Button:
+                                    id: stop_recording
+                                    text: "Stop Recording"
+                                    pos_hint:  {'center_x' : 0.6}
+                                    on_press: app.exit_recording()
                                 Button:
                                     text: 'Next Sentence'
                                     on_press: app.next_sentence()
                                     pos_hint:  {'center_x' : 0.6}
 
                     AccordionItem:
-                        title: "Select your voice as .wav file"
+                        title: "Select .wav to clone"
 
                         BoxLayout:
                             canvas.before:
@@ -85,19 +101,23 @@ BoxLayout:
                             BoxLayout:      
                                 TextInput:
                                     id: input_filename_clone
-                                    hint_text: 'Enter output filename (end in .wav)'
+                                    hint_text: 'Enter output filename (.wav)'
                                     size_hint: None, None
                                     width: 200
                                     height: 50
                                     pos_hint:  {'center_y' : 0.5}
                             BoxLayout:
+                                width: 200
+                                size_hint: None, None
+                                pos_hint:  {'center_y' : 0.3}
                                 Button:
                                     id: upload_wav
-                                    text: 'Click Me to Voice Clone'
-                                    size_hint: None, None
-                                    width: 200
-                                    pos_hint:  {'center_y' : 0.3}
+                                    text: 'Clone'
                                     on_press: app.file_selected(fc_wav.selection, input_text_clone.text, input_filename_clone.text)
+                                Button:
+                                    id: play_wav
+                                    text: 'Play'
+                                    on_press: app.play_selected(fc_wav.selection)
 
         MDBottomNavigationItem:
             name: "text-to-speech"
@@ -110,7 +130,7 @@ BoxLayout:
                     size: root.width, root.height*0.8
 
                     AccordionItem:
-                        title: "Read out custom text"
+                        title: "Read out custom text with default voice"
                         collapse: False
                         BoxLayout:
                             orientation: 'vertical'
@@ -132,7 +152,7 @@ BoxLayout:
                                 on_press: app.process()
 
                     AccordionItem:
-                        title: "Read .pdf"
+                        title: "Read out .pdf"
 
                         BoxLayout:
                             orientation: 'vertical'
@@ -200,15 +220,6 @@ BoxLayout:
                                     size_hint: None, None
                                     height: 35
                                     on_release: user.select('User 2')
-
-                    AccordionItem:
-                        title: "Default voice"
-                        BoxLayout:
-                            Switch:
-                                id: default_voice
-                            Label:
-                                text: 'Default voice ON' if default_voice.active else 'Default voice OFF'
-                                color: 'black'
 
                     AccordionItem:
                         title: "Languages"
