@@ -1,5 +1,6 @@
 import sys
 import argparse
+from argparse import RawTextHelpFormatter
 from src.ANIMA import ANIMA
 from src.manage_audio import AudioManager
 from src.pdf_to_txt import PdfToStrings
@@ -8,13 +9,13 @@ from src.img_to_txt import ImgToStrings
 def main():
     # Create the parser
     description = """
-    This is a CLI to run ANIMA and to demonstrate current features for TTS and voice-cloning. 
+    This is a CLI to run ANIMA and to demonstrate its current features.
 
-    Example commands are shown below:
+    Example commands are shown below:\n
 
     #list downloaded models for TTS and voice cloning
         $cli.py --list_models
-    
+        
     #list all saved audios 
         $cli.py --list_audios
 
@@ -27,17 +28,17 @@ def main():
     # voice_cloning with pdf
         $cli.py --voice_clone_pdf --text_file "filename" --voice_name "voice_name" --out_file "out_filename.wav"
 
-    # (!!!) voice_cloning with image
-        $cli.py --txt_file "filename" --voice_name "voice_name" --lang "lang_code" --out_file "out_filename.wav"
+    # voice_cloning with image
+        $cli.py --voice_clone_img --text_file "filename" --voice_name "voice_name" --out_file "out_filename.wav"
 
-    # (!!!) tts with pdf
-        $cli.py --txt_file "filename" --out_file "out_filename.wav"
+    # tts with pdf
+        $cli.py --tts_pdf --text_file "filename" --out_file "out_filename.wav"
 
-    # (!!!) tts with image
-        $cli.py --txt_file "filename" --lang "lang_code" --out_file "out_filename.wav"
+    # tts with image
+        $cli.py --tts_img --text_file "filename" --out_file "out_filename.wav"
 
-    # (!!!) add language model in "models.json"
-        $cli.py --add_model --lang "lang_code" --model_path "model_path"
+    # add language model in "models.json"
+        $cli.py --add_model --model_type "model_type" --lang "lang_code" --model_path "model_path"
 
     #create voice
         $cli.py --create --voice_name "voice_name" --lang "lang_code" --in_file "in_filename"
@@ -46,24 +47,25 @@ def main():
         $cli.py --create --voice_name "voice_name" --lang "lang_code" --in_file_list "in_file1" "in_file2"
 
     #edit existing voice name
-        $cli.py --in_file "in_filename.wav" --out_file "out_filename.wav"
+        $cli.py --edit_voice_name --in_file "in_filename.wav" --out_file "out_filename.wav"
     
     #edit existing audio name
-        $cli.py --voice_name "voice_name" --lang "lang_code" --in_file "in_filename.wav" --out_file "out_filename.wav"
+        $cli.py --edit_audio_name --voice_name "voice_name" --lang "lang_code" --in_file "in_filename.wav" --out_file "out_filename.wav"
 
     #play audio 
-        $cli.py --voice_name "voice_name" --lang "lang_code" --out_file "out_filename"
+        $cli.py --play --voice_name "voice_name" --lang "lang_code" --out_file "out_filename"
 
     #delete voice
-        $cli.py --delete --voice_name "voice_name"
+        $cli.py --delete_voice --voice_name "voice_name"
 
     #delete language
-        $cli.py --delete --voice_name "voice_name" --lang "lang_code"
+        $cli.py --delete_lang --voice_name "voice_name" --lang "lang_code"
 
     #delete audio
-        $cli.py --delete --voice_name "voice_name" --lang "lang_code" --in_file "in_filename"
+        $cli.py --delete_audio --voice_name "voice_name" --lang "lang_code" --in_file "in_filename"
     """
-    parser = argparse.ArgumentParser(prog="anima", description=description, allow_abbrev=False, epilog="Enjoy ANIMA ;)")
+
+    parser = argparse.ArgumentParser(prog="anima", description=description, allow_abbrev=False, epilog="Enjoy ANIMA ;)", formatter_class=RawTextHelpFormatter)
 
     # Add arguments
     parser.add_argument("--list_models",
@@ -295,5 +297,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-

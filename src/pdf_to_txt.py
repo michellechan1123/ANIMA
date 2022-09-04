@@ -56,6 +56,10 @@ class PdfToStrings():
                             raise self.InvalidPageLineNumber()
                         if line == n:
                             selected_line_list.append(text)
+
+                if selected_line_list == []:
+                    raise self.InvalidLineNumber()
+
                 return selected_line_list
 
             return [curr_text]    
@@ -101,6 +105,10 @@ class PdfToStrings():
     class InvalidPageLineNumber(Exception):
         def __init__(self) -> None:
             super().__init__(f"Invalid page number: the page and line number must be > 0")
+    
+    class InvalidLineNumber(Exception):
+        def __init__(self) -> None:
+            super().__init__(f"Invalid line number: the line number is out of range")
 
 
     class InvalidFilename(Exception):

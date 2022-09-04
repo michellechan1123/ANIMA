@@ -1,9 +1,11 @@
 from pathlib import Path
+from tracemalloc import start
 from TTS.utils.manage import ModelManager
 from TTS.utils.synthesizer import Synthesizer
 import json
 import os
 import shutil
+import time
 
 #ModelManager and Synthesizer are taken from TTS utils library.
 
@@ -57,6 +59,7 @@ class ANIMA():
             filename (str): output filename in path/output_speech.wav format
             lang (str): language code
         """
+        start_time = time.time()
 
         self.__check_filename(filename)
         self.__check_lang_len(lang)
@@ -77,7 +80,9 @@ class ANIMA():
 
         wavs = synthesizer.tts(text, language_name=lang)
         synthesizer.save_wav(wavs, filename)
-        print(f"The file {filename} has been saved!")
+
+        total_time = time.time() - start_time
+        print(f"The file {filename} has been saved and the total time = {total_time}!")
 
 
     def voice_clone(self, text: str, speaker_wav: str, filename: str, lang: str):
@@ -92,6 +97,8 @@ class ANIMA():
             filename (str): output filename in path/output_speech.wav format
             lang (str): language code 
         """
+
+        start_time = time.time()
 
         self.__check_filename(speaker_wav)
         self.__check_filename(filename)
@@ -113,7 +120,8 @@ class ANIMA():
 
         wavs = synthesizer.tts(text, language_name=lang, speaker_wav=speaker_wav)
         synthesizer.save_wav(wavs, filename)
-        print(f"The file {filename} has been saved!")
+        total_time = time.time() - start_time
+        print(f"The file {filename} has been saved and the total time = {total_time}!")
 
 
     def add_language_model(self, model_type: str, lang: str, model_name: str):
@@ -161,15 +169,16 @@ class ANIMA():
             file_str = file.read()
             file_data = json.loads(file_str)
 
-            model_path = file_data[model_type][lang]["tts_model"]
-            model_name = model_path.replace("/", "--")
-
-            parent_path = Path.home()
-            base_path = os.path.join(parent_path, "AppData", "Local", "tts")
-
-            new_model_path = os.path.join(base_path, model_name)
-
             try:
+                model_path = file_data[model_type][lang]["tts_model"]
+                model_name = model_path.replace("/", "--")
+
+                parent_path = Path.home()
+                base_path = os.path.join(parent_path, "AppData", "Local", "tts")
+
+                new_model_path = os.path.join(base_path, model_name)
+
+           
                 shutil.rmtree(new_model_path)
 
                 file_data[model_type].pop(lang)

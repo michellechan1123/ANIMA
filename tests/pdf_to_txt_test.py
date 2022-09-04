@@ -13,13 +13,13 @@ class PdfToTxtTest(unittest.TestCase):
         with self.assertRaises(Exception):
             self.pdf_to_strings.pdf_to_str("tests/test_files/any_pdf.pdf")
     
-    def test_pdf_to_str_invalid_file_page_line_with_zero(self):
+    def test_pdf_to_str_invalid_file_page(self):
         with self.assertRaises(self.pdf_to_strings.InvalidPageLineNumber):
             self.pdf_to_strings.pdf_to_str("tests/test_files/sample_pdf.pdf", {"page": 0, "lines": [1, 2]})
 
-    def test_pdf_to_str_invalid_file_page(self):
-        with self.assertRaises(Exception):
-            self.pdf_to_strings.pdf_to_str("tests/test_files/sample_pdf.pdf", {"page": 3, "lines": [20, 21]})
+    def test_pdf_to_str_invalid_pageline(self):
+        with self.assertRaises(self.pdf_to_strings.InvalidLineNumber):
+            self.pdf_to_strings.pdf_to_str("tests/test_files/sample_pdf.pdf", {"page": 1, "lines": [40]})
 
     def test_pdf_to_str_invalid_password(self):
         with self.assertRaises(Exception):

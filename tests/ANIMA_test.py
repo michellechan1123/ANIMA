@@ -88,4 +88,30 @@ class ANIMATest(unittest.TestCase):
         model_name = model_path.replace("/", "--")
         path = os.path.join(parent_path, "AppData", "Local", "tts", model_name)
         tts_model_path = pathlib.Path(path)
-        self.assertTrue(tts_model_path.parent.is_dir())
+        self.assertTrue(tts_model_path.is_dir())
+
+    def test_remove_language_model_invalid_model_type(self):
+        with self.assertRaises(self.anima.InvalidModelType):
+            self.anima.remove_language_model("ja", "any_model")
+
+    def test_delete_language_model_invalid_lang_code_len(self):
+        with self.assertRaises(self.anima.InvalidLanguageCodeLength):
+            self.anima.remove_language_model("jap", "TTS_models")
+
+    def test_delete_language_model_invalid_lang(self):
+        with self.assertRaises(self.anima.InvalidLanguage):
+            self.anima.remove_language_model("ch", "TTS_models")
+
+    def test_delete_language_model_valid(self):
+        model_path = "tts_models/ja/kokoro/tacotron2-DDC"
+        self.anima.remove_language_model("ja", "TTS_models")
+
+        parent_path = Path.home()
+        model_name = model_path.replace("/", "--")
+        path = os.path.join(parent_path, "AppData", "Local", "tts", model_name)
+        tts_model_path = pathlib.Path(path)
+        self.assertFalse(tts_model_path.is_dir())
+
+        
+
+        
