@@ -1,7 +1,7 @@
 # ANIMA
 ## Voice Integration and TTS of MotionInput
 
-ANIMA is a TTS and voice cloning backend working on multiple languages. This repository is built upon Coqui TTS to provide a voice integration layer to UCL MotionInput, which contributes to the implementation of my MSc Computer Science master's thesis.
+ANIMA is a TTS and voice cloning backend working on multiple languages. This repository is built upon Coqui TTS to provide a voice integration layer to UCL MotionInput and an alternative open source voice integration toolkit to Intel, which contributes to the implementation of my MSc Computer Science master's thesis.
 
 ## Features
 
@@ -13,27 +13,28 @@ ANIMA is a TTS and voice cloning backend working on multiple languages. This rep
 
 ## Installation
 
-```sh
- $ pip install -r requirements.txt 
-```
-
-ANIMA requires the dependencies below:
-- Python 3.6< and <3.10
+ANIMA requires the dependencies below and download all of these and place it in the location as indicated (if applicable):
+- Python 3.7<= and <3.10
 - Visual studio C++ build 
 - ffmpeg (version-free)
 - Tesseract-OCR exe (C:\Program Files)
+
+Then run:
+```sh
+ $ pip install -r requirements.txt 
+```
 
 ## Play around with ANIMA CLI
 
 ### Voice cloning
 
 ```sh
- $ cli.py --voice_clone --text "example text" --voice_name "voice_name" --lang "lang_code" --out_file "out_filename.wav"
+ $ py cli.py --voice_clone --text "example text" --voice_name "voice_name" --lang "lang_code" --out_file "out_filename.wav"
 ```
 
 ### TTS 
 ```sh
-$ cli.py --tts --text "example text" --lang "lang_code" --out_file "out_filename.wav"
+$ py cli.py --tts --text "example text" --lang "lang_code" --out_file "out_filename.wav"
 ```
 
 ## "audios" file structure
