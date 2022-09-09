@@ -18,7 +18,7 @@ ANIMA is a TTS and voice cloning backend working on multiple languages. This rep
 ```
 
 ANIMA requires the dependencies below:
-- Python <3.10
+- Python 3.6< and <3.10
 - Visual studio C++ build 
 - ffmpeg (version-free)
 - Tesseract-OCR exe (C:\Program Files)
