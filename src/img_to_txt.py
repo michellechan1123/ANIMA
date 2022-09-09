@@ -12,7 +12,7 @@ class ImgToStrings():
 
     def img_to_str(self, img_path: str, lang: str):
         """
-        Convert text in .jpg image to strings. English, portuguese, frencg and german are available.
+        Convert text in .jpg image to strings. English, portuguese, french and german are available.
 
         Args:
             img_path (str): image filepath in path/image format. Only allows .jpg file
